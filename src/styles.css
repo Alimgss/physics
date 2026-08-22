@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap');
+
+:root {
+  color: #f8fafc;
+  background: #08111f;
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at top right, #1d4ed8 0, transparent 32rem), linear-gradient(135deg, #07111f, #111827 48%, #0f172a); }
+button, input { font: inherit; }
+
+.app-shell { width: min(1180px, 100%); margin: 0 auto; padding: 24px; }
+.hero-card, .panel { border: 1px solid rgba(255,255,255,.12); background: rgba(15,23,42,.78); box-shadow: 0 24px 80px rgba(0,0,0,.28); backdrop-filter: blur(20px); }
+.hero-card { display: grid; grid-template-columns: 1fr 240px; gap: 20px; align-items: center; border-radius: 32px; padding: 32px; margin-bottom: 22px; }
+.eyebrow { color: #67e8f9; font-weight: 800; margin: 0 0 10px; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 4.6rem); line-height: 1.05; letter-spacing: -1.5px; }
+.hero-text { color: #cbd5e1; max-width: 700px; font-size: 1.05rem; line-height: 1.9; }
+.week-control { border-radius: 26px; padding: 20px; background: linear-gradient(160deg, rgba(34,211,238,.18), rgba(99,102,241,.24)); }
+.week-control label, .week-control span { display: block; color: #cbd5e1; margin-bottom: 10px; }
+.week-control input { width: 100%; border: 0; border-radius: 18px; padding: 14px; color: white; background: rgba(2,6,23,.72); font-size: 1.6rem; font-weight: 900; text-align: center; }
+
+.planner-grid { display: grid; grid-template-columns: 320px 1fr 330px; gap: 18px; align-items: start; }
+.panel { border-radius: 28px; padding: 20px; min-height: 300px; }
+.panel-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.panel-title h2 { margin: 0; font-size: 1.25rem; }
+.panel-title span { color: #93c5fd; }
+.panel-title input { width: min(280px, 100%); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 12px 14px; color: white; background: rgba(2,6,23,.58); }
+.weeks-list, .exercise-list, .day-plan { display: grid; gap: 14px; }
+.week-card { border-radius: 22px; padding: 14px; background: rgba(255,255,255,.05); }
+.week-card strong { display: block; margin-bottom: 10px; }
+.days-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.day-button { cursor: pointer; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 10px; color: #e2e8f0; background: rgba(15,23,42,.8); text-align: right; transition: .2s ease; }
+.day-button small { display: block; margin-top: 4px; color: #94a3b8; }
+.day-button.active, .day-button:hover { transform: translateY(-2px); border-color: #22d3ee; background: rgba(14,165,233,.25); }
+.exercise-card, .planned-card { display: grid; grid-template-columns: 96px 1fr auto; gap: 14px; align-items: center; border-radius: 22px; padding: 12px; background: rgba(255,255,255,.055); }
+.exercise-card img, .planned-card img { width: 96px; height: 82px; object-fit: cover; border-radius: 18px; background: #020617; }
+.exercise-card h3, .planned-card h3 { margin: 0 0 6px; }
+.exercise-card p, .planned-card p { margin: 0 0 8px; color: #cbd5e1; }
+.exercise-card span { color: #a7f3d0; font-weight: 700; }
+.exercise-card button, .planned-card button { cursor: pointer; border: 0; border-radius: 16px; padding: 11px 16px; color: #06111f; background: linear-gradient(135deg, #22d3ee, #a7f3d0); font-weight: 900; }
+.planned-card { grid-template-columns: 78px 1fr auto; }
+.planned-card img { width: 78px; height: 70px; }
+.planned-card button { color: white; background: rgba(239,68,68,.78); }
+.empty-state { border: 1px dashed rgba(255,255,255,.2); border-radius: 22px; padding: 32px; color: #cbd5e1; text-align: center; }
+
+@media (max-width: 980px) { .hero-card, .planner-grid { grid-template-columns: 1fr; } .calendar-panel { order: 1; } .library-panel { order: 2; } .day-plan { order: 3; } }
+@media (max-width: 560px) { .app-shell { padding: 14px; } .hero-card, .panel { border-radius: 22px; padding: 16px; } .exercise-card { grid-template-columns: 84px 1fr; } .exercise-card button { grid-column: 1 / -1; } .panel-title { align-items: flex-start; flex-direction: column; } }
