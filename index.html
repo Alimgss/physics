@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>برنامه‌ساز بدنسازی</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-card">
+        <div>
+          <p class="eyebrow">اپ فارسی برنامه‌ساز بدنسازی</p>
+          <h1>برنامه تمرینی چند هفته‌ای را سریع، زیبا و حرفه‌ای بسازید</h1>
+          <p class="hero-text">تعداد هفته‌ها را مشخص کنید، روز تمرین را انتخاب کنید و از کتابخانه گیف‌های تمرینی، حرکت‌ها را به برنامه اضافه کنید.</p>
+        </div>
+        <div class="week-control">
+          <label for="weeks">تعداد هفته</label>
+          <input id="weeks" type="number" min="1" max="16" value="4" />
+          <span id="session-count">۰ جلسه فعال</span>
+        </div>
+      </section>
+
+      <section class="planner-grid">
+        <aside class="panel calendar-panel">
+          <div class="panel-title"><h2>تقویم برنامه</h2><span id="week-label">۴ هفته</span></div>
+          <div id="weeks-list" class="weeks-list"></div>
+        </aside>
+
+        <section class="panel library-panel">
+          <div class="panel-title"><h2>گیف‌های تمرین</h2><input id="search" placeholder="جستجوی حرکت یا عضله..." /></div>
+          <div id="exercise-list" class="exercise-list"></div>
+        </section>
+
+        <section class="panel day-plan">
+          <div class="panel-title"><h2 id="selected-title">هفته ۱، شنبه</h2><span id="selected-count">۰ حرکت</span></div>
+          <div id="selected-exercises" class="selected-exercises"></div>
+        </section>
+      </section>
+    </main>
+    <script src="src/app.js"></script>
+  </body>
+</html>

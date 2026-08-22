@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>برنامه‌ساز بدنسازی</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap');
+
+:root {
+  color: #f8fafc;
+  background: #08111f;
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at top right, #1d4ed8 0, transparent 32rem), linear-gradient(135deg, #07111f, #111827 48%, #0f172a); }
+button, input { font: inherit; }
+
+.app-shell { width: min(1180px, 100%); margin: 0 auto; padding: 24px; }
+.hero-card, .panel { border: 1px solid rgba(255,255,255,.12); background: rgba(15,23,42,.78); box-shadow: 0 24px 80px rgba(0,0,0,.28); backdrop-filter: blur(20px); }
+.hero-card { display: grid; grid-template-columns: 1fr 240px; gap: 20px; align-items: center; border-radius: 32px; padding: 32px; margin-bottom: 22px; }
+.eyebrow { color: #67e8f9; font-weight: 800; margin: 0 0 10px; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 4.6rem); line-height: 1.05; letter-spacing: -1.5px; }
+.hero-text { color: #cbd5e1; max-width: 700px; font-size: 1.05rem; line-height: 1.9; }
+.week-control { border-radius: 26px; padding: 20px; background: linear-gradient(160deg, rgba(34,211,238,.18), rgba(99,102,241,.24)); }
+.week-control label, .week-control span { display: block; color: #cbd5e1; margin-bottom: 10px; }
+.week-control input { width: 100%; border: 0; border-radius: 18px; padding: 14px; color: white; background: rgba(2,6,23,.72); font-size: 1.6rem; font-weight: 900; text-align: center; }
+
+.planner-grid { display: grid; grid-template-columns: 320px 1fr 330px; gap: 18px; align-items: start; }
+.panel { border-radius: 28px; padding: 20px; min-height: 300px; }
+.panel-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.panel-title h2 { margin: 0; font-size: 1.25rem; }
+.panel-title span { color: #93c5fd; }
+.panel-title input { width: min(280px, 100%); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 12px 14px; color: white; background: rgba(2,6,23,.58); }
+.weeks-list, .exercise-list, .day-plan { display: grid; gap: 14px; }
+.week-card { border-radius: 22px; padding: 14px; background: rgba(255,255,255,.05); }
+.week-card strong { display: block; margin-bottom: 10px; }
+.days-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.day-button { cursor: pointer; border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 10px; color: #e2e8f0; background: rgba(15,23,42,.8); text-align: right; transition: .2s ease; }
+.day-button small { display: block; margin-top: 4px; color: #94a3b8; }
+.day-button.active, .day-button:hover { transform: translateY(-2px); border-color: #22d3ee; background: rgba(14,165,233,.25); }
+.exercise-card, .planned-card { display: grid; grid-template-columns: 96px 1fr auto; gap: 14px; align-items: center; border-radius: 22px; padding: 12px; background: rgba(255,255,255,.055); }
+.exercise-card img, .planned-card img { width: 96px; height: 82px; object-fit: cover; border-radius: 18px; background: #020617; }
+.exercise-card h3, .planned-card h3 { margin: 0 0 6px; }
+.exercise-card p, .planned-card p { margin: 0 0 8px; color: #cbd5e1; }
+.exercise-card span { color: #a7f3d0; font-weight: 700; }
+.exercise-card button, .planned-card button { cursor: pointer; border: 0; border-radius: 16px; padding: 11px 16px; color: #06111f; background: linear-gradient(135deg, #22d3ee, #a7f3d0); font-weight: 900; }
+.planned-card { grid-template-columns: 78px 1fr auto; }
+.planned-card img { width: 78px; height: 70px; }
+.planned-card button { color: white; background: rgba(239,68,68,.78); }
+.empty-state { border: 1px dashed rgba(255,255,255,.2); border-radius: 22px; padding: 32px; color: #cbd5e1; text-align: center; }
+
+@media (max-width: 980px) { .hero-card, .planner-grid { grid-template-columns: 1fr; } .calendar-panel { order: 1; } .library-panel { order: 2; } .day-plan { order: 3; } }
+@media (max-width: 560px) { .app-shell { padding: 14px; } .hero-card, .panel { border-radius: 22px; padding: 16px; } .exercise-card { grid-template-columns: 84px 1fr; } .exercise-card button { grid-column: 1 / -1; } .panel-title { align-items: flex-start; flex-direction: column; } }
+
+</style>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-card">
+        <div>
+          <p class="eyebrow">اپ فارسی برنامه‌ساز بدنسازی</p>
+          <h1>برنامه تمرینی چند هفته‌ای را سریع، زیبا و حرفه‌ای بسازید</h1>
+          <p class="hero-text">تعداد هفته‌ها را مشخص کنید، روز تمرین را انتخاب کنید و از کتابخانه گیف‌های تمرینی، حرکت‌ها را به برنامه اضافه کنید.</p>
+        </div>
+        <div class="week-control">
+          <label for="weeks">تعداد هفته</label>
+          <input id="weeks" type="number" min="1" max="16" value="4" />
+          <span id="session-count">۰ جلسه فعال</span>
+        </div>
+      </section>
+
+      <section class="planner-grid">
+        <aside class="panel calendar-panel">
+          <div class="panel-title"><h2>تقویم برنامه</h2><span id="week-label">۴ هفته</span></div>
+          <div id="weeks-list" class="weeks-list"></div>
+        </aside>
+
+        <section class="panel library-panel">
+          <div class="panel-title"><h2>گیف‌های تمرین</h2><input id="search" placeholder="جستجوی حرکت یا عضله..." /></div>
+          <div id="exercise-list" class="exercise-list"></div>
+        </section>
+
+        <section class="panel day-plan">
+          <div class="panel-title"><h2 id="selected-title">هفته ۱، شنبه</h2><span id="selected-count">۰ حرکت</span></div>
+          <div id="selected-exercises" class="selected-exercises"></div>
+        </section>
+      </section>
+    </main>
+    <script>
+const exercises = [
+  { id: 1, title: 'اسکوات با وزن بدن', muscle: 'پا و باسن', level: 'مبتدی', gif: 'https://media.giphy.com/media/3o6ZtpWvwnhf34Oj0A/giphy.gif', sets: '۳ × ۱۲' },
+  { id: 2, title: 'شنا سوئدی', muscle: 'سینه و پشت بازو', level: 'متوسط', gif: 'https://media.giphy.com/media/l0MYwONBGDS7aPGOk/giphy.gif', sets: '۳ × ۱۰' },
+  { id: 3, title: 'لانج تناوبی', muscle: 'پا', level: 'مبتدی', gif: 'https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif', sets: '۳ × ۱۰ هر پا' },
+  { id: 4, title: 'پلانک', muscle: 'مرکز بدن', level: 'مبتدی', gif: 'https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif', sets: '۳ × ۳۰ ثانیه' },
+  { id: 5, title: 'ددلیفت دمبل', muscle: 'پشت پا و کمر', level: 'پیشرفته', gif: 'https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif', sets: '۴ × ۸' },
+  { id: 6, title: 'پرس سرشانه', muscle: 'سرشانه', level: 'متوسط', gif: 'https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif', sets: '۳ × ۱۰' },
+];
+
+const dayNames = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
+const state = { weeks: 4, selectedWeek: 1, selectedDay: 1, query: '', plan: {} };
+const $ = (id) => document.getElementById(id);
+const getDayItems = (week = state.selectedWeek, day = state.selectedDay) => state.plan[week]?.[day] ?? [];
+
+function setDay(week, day) { state.selectedWeek = week; state.selectedDay = day; render(); }
+function addExercise(id) {
+  const exercise = exercises.find((item) => item.id === id);
+  if (!exercise) return;
+  state.plan[state.selectedWeek] ??= {};
+  state.plan[state.selectedWeek][state.selectedDay] ??= [];
+  state.plan[state.selectedWeek][state.selectedDay].push({ ...exercise, note: exercise.sets });
+  render();
+}
+function removeExercise(index) { state.plan[state.selectedWeek][state.selectedDay].splice(index, 1); render(); }
+function activeSessions() { return Object.values(state.plan).reduce((sum, week) => sum + Object.values(week).filter((items) => items.length).length, 0); }
+
+function renderCalendar() {
+  $('week-label').textContent = `${state.weeks} هفته`;
+  $('session-count').textContent = `${activeSessions()} جلسه فعال`;
+  $('weeks-list').innerHTML = Array.from({ length: state.weeks }, (_, weekIndex) => {
+    const week = weekIndex + 1;
+    const buttons = dayNames.map((label, dayIndex) => {
+      const day = dayIndex + 1;
+      const count = getDayItems(week, day).length;
+      const active = week === state.selectedWeek && day === state.selectedDay ? ' active' : '';
+      return `<button class="day-button${active}" data-week="${week}" data-day="${day}">${label}<small>${count ? `${count} حرکت` : 'استراحت'}</small></button>`;
+    }).join('');
+    return `<div class="week-card"><strong>هفته ${week}</strong><div class="days-grid">${buttons}</div></div>`;
+  }).join('');
+  document.querySelectorAll('.day-button').forEach((button) => button.addEventListener('click', () => setDay(Number(button.dataset.week), Number(button.dataset.day))));
+}
+
+function renderLibrary() {
+  const filtered = exercises.filter((item) => `${item.title} ${item.muscle} ${item.level}`.includes(state.query));
+  $('exercise-list').innerHTML = filtered.map((exercise) => `<article class="exercise-card"><img src="${exercise.gif}" alt="${exercise.title}" /><div><h3>${exercise.title}</h3><p>${exercise.muscle} • ${exercise.level}</p><span>${exercise.sets}</span></div><button data-add="${exercise.id}">افزودن</button></article>`).join('');
+  document.querySelectorAll('[data-add]').forEach((button) => button.addEventListener('click', () => addExercise(Number(button.dataset.add))));
+}
+
+function renderSelectedDay() {
+  const items = getDayItems();
+  $('selected-title').textContent = `هفته ${state.selectedWeek}، ${dayNames[state.selectedDay - 1]}`;
+  $('selected-count').textContent = `${items.length} حرکت`;
+  $('selected-exercises').innerHTML = items.length ? items.map((exercise, index) => `<article class="planned-card"><img src="${exercise.gif}" alt="${exercise.title}" /><div><h3>${exercise.title}</h3><p>${exercise.note}</p></div><button data-remove="${index}">حذف</button></article>`).join('') : '<div class="empty-state">برای این روز هنوز حرکتی انتخاب نشده است.</div>';
+  document.querySelectorAll('[data-remove]').forEach((button) => button.addEventListener('click', () => removeExercise(Number(button.dataset.remove))));
+}
+
+function render() { renderCalendar(); renderLibrary(); renderSelectedDay(); }
+$('weeks').addEventListener('input', (event) => { state.weeks = Math.max(1, Math.min(16, Number(event.target.value) || 1)); if (state.selectedWeek > state.weeks) state.selectedWeek = state.weeks; render(); });
+$('search').addEventListener('input', (event) => { state.query = event.target.value.trim(); renderLibrary(); });
+render();
+
+</script>
+  </body>
+</html>
